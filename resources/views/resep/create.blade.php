@@ -68,14 +68,14 @@
         </div>
 
         <!-- Rincian Bahan -->
-        <div>
-            <label class="block mb-1 font-semibold">Masukkan Rincian Bahan:</label>
-            <textarea name="rincian_bahan" class="w-full border rounded p-2" rows="5"
-                placeholder="Contoh:
-    - 2 sdm garam
-    - 1 liter air
-    - 500 gr ayam" required></textarea>
-        </div>
+            <div>
+                <label class="block mb-1 font-semibold">Masukkan Rincian Bahan:</label>
+                <textarea name="rincian_bahan" class="w-full border rounded p-2" rows="5"
+                    placeholder="Contoh:
+        - 2 sdm garam
+        - 1 liter air
+        - 500 gr ayam" required></textarea>
+            </div>
 
         <!-- Bahan (Structured) -->
         <div>

@@ -16,9 +16,9 @@ return new class extends Migration
             $table->enum('role', ['admin', 'user'])->default('user')->after('email');
         });
 
-        // Add user_id to reseps table (recipe author)
+        // Add user_id to reseps table
         Schema::table('reseps', function (Blueprint $table) {
-            $table->foreignId('user_id')->nullable()->constrained('users')->after('id');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null')->after('id');
         });
     }
 

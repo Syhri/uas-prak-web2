@@ -34,12 +34,47 @@
                                 <span
                                     class="bg-orange-100 text-orange-600 text-xs px-2 py-1 rounded-full">{{ $resep->kategori->nama }}</span>
                             </div>
+                        </a>
 
-                            <!-- Icon Favorit -->
-                            <button class="absolute top-2 right-2 bg-white p-1 rounded-full shadow">
-                                ❤️
-                            </button>
+                        <!-- Icon Favorit -->
+                        @auth
+                            <div class="absolute top-2 right-2">
+                                <form action="{{ route('favorites.toggle', $resep) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit"
+                                        class="bg-white p-1 rounded-full shadow hover:bg-gray-50 transition-colors">
+                                        @if (Auth::user()->hasFavorited($resep))
+                                            <svg class="w-5 h-5 text-red-500" cursor="pointer" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        @else
+                                            <svg class="w-5 h-5 text-gray-400" cursor="pointer" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                                                </path>
+                                            </svg>
+                                        @endif
+                                    </button>
+                                </form>
+                            </div>
+                        @else
+                            <div class="absolute top-2 right-2">
+                                <a href="{{ route('login') }}"
+                                    class="bg-white p-1 rounded-full shadow hover:bg-gray-50 transition-colors inline-block">
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" t stroke-linejoin="round" stroke-width="2"
+                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                                        </path>
+                                    </svg>
+                                </a>
+                            </div>
+                        @endauth
 
+                        <a href="{{ route('resep.show', $resep) }}">
                             <div class="p-4">
                                 <h3 class="font-bold text-gray-800 text-lg mb-2">{{ $resep->nama_masakan }}</h3>
                             </div>

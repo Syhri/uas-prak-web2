@@ -45,7 +45,7 @@
                         <div class="relative group">
                             <button
                                 class="flex items-center space-x-1 font-sans text-base border-none outline-none py-3.5 px-4 bg-inherit m-0">
-                                <span class="leading-none">Resep</span>
+                                <span class="leading">Resep</span>
                                 <svg class="w-4 h-4 mt-0.5 transition-transform rotate-0 group-hover:rotate-180"
                                     fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
@@ -85,13 +85,7 @@
                                     </a>
                                 @endforeach
                             </div>
-
                         </div>
-
-                        <!-- Upload Resep -->
-                        <a href="{{ route('resep.create') }}" class=" hover:text-amber-600 font-semibold text-sm">
-                            Unggah Resepmu
-                        </a>
                     </div>
 
                     <!-- Search -->
@@ -113,6 +107,34 @@
                             </button>
                         </form>
                     </div>
+
+                    @auth
+                        <a href="{{ route('favorites.index') }}" class="text-gray-700 hover:text-gray-900">Favorit</a>
+                        <div class="relative group">
+                            <button class="text-gray-700 hover:text-gray-900 flex items-center">
+                                {{ Auth::user()->name }}
+                                <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                            <div
+                                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit"
+                                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @else
+                        <a href="{{ route('login') }}" class="text-gray-700 hover:text-gray-900">Login</a>
+                        <a href="{{ route('register') }}"
+                            class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600">Register</a>
+                    @endauth
                 </div>
             </div>
         </nav>

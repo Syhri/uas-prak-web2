@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('resep_id')->constrained('reseps')->onDelete('cascade');
-            $table->integer('nilai')->unsigned()->comment('Rating 1-5');
+            $table->integer('nilai')->comment('Rating value from 1 to 5');
             $table->timestamps();
 
             // Ensure one rating per user per recipe

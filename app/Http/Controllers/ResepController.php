@@ -26,9 +26,55 @@ class ResepController extends Controller
      */
     public function create()
     {
+        // Check if categories and regions exist, if not create some default ones
+        if (Kategori::count() === 0) {
+            $this->seedDefaultKategori();
+        }
+        
+        if (Daerah::count() === 0) {
+            $this->seedDefaultDaerah();
+        }
+        
         $kategoris = Kategori::all();
         $daerahs = Daerah::all();
+        
         return view('resep.create', compact('kategoris', 'daerahs'));
+    }
+
+    /**
+     * Seed default categories if none exist
+     */
+    private function seedDefaultKategori()
+    {
+        $kategoris = [
+            ['nama' => 'Makanan Utama', 'slug' => 'makanan-utama', 'deskripsi' => 'Hidangan utama untuk makan siang atau makan malam'],
+            ['nama' => 'Sarapan', 'slug' => 'sarapan', 'deskripsi' => 'Hidangan untuk memulai hari'],
+            ['nama' => 'Camilan', 'slug' => 'camilan', 'deskripsi' => 'Makanan ringan untuk di antara waktu makan'],
+            ['nama' => 'Minuman', 'slug' => 'minuman', 'deskripsi' => 'Berbagai jenis minuman'],
+            ['nama' => 'Dessert', 'slug' => 'dessert', 'deskripsi' => 'Hidangan penutup dan makanan manis']
+        ];
+        
+        foreach ($kategoris as $kategori) {
+            Kategori::create($kategori);
+        }
+    }
+    
+    /**
+     * Seed default regions if none exist
+     */
+    private function seedDefaultDaerah()
+    {
+        $daerahs = [
+            ['nama' => 'Jawa', 'slug' => 'jawa', 'deskripsi' => 'Masakan dari daerah Jawa', 'gambar' => null],
+            ['nama' => 'Sumatera', 'slug' => 'sumatera', 'deskripsi' => 'Masakan dari daerah Sumatera', 'gambar' => null],
+            ['nama' => 'Sulawesi', 'slug' => 'sulawesi', 'deskripsi' => 'Masakan dari daerah Sulawesi', 'gambar' => null],
+            ['nama' => 'Kalimantan', 'slug' => 'kalimantan', 'deskripsi' => 'Masakan dari daerah Kalimantan', 'gambar' => null],
+            ['nama' => 'Bali', 'slug' => 'bali', 'deskripsi' => 'Masakan dari daerah Bali', 'gambar' => null]
+        ];
+        
+        foreach ($daerahs as $daerah) {
+            Daerah::create($daerah);
+        }
     }
 
     /**

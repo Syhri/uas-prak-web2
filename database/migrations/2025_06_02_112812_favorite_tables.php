@@ -11,7 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('favorites', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('resep_id')->constrained('reseps')->onDelete('cascade');
+            $table->timestamp('created_at')->nullable();
+
+            // Ensure one favorite per user per recipe
+            $table->unique(['user_id', 'resep_id']);
+        });
     }
 
     /**
@@ -19,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('favorites');
     }
 };
